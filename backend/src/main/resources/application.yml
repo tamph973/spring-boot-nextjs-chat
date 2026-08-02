@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: chat-backend
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+server:
+  port: 8080
+
+logging:
+  level:
+    com.chat: DEBUG
+    org.hibernate.SQL: DEBUG
+
+jwt:
+  secret: ${JWT_SECRET:devChatSecretKeyReplaceMeAtLeast32BytesLongForHS256}
+  expiration: 86400000
+  refresh-expiration: 604800000
+
+app:
+  cors:
+    allowed-origins: http://localhost:3000

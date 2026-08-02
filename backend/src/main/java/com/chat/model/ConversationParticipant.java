@@ -30,6 +30,7 @@ public class ConversationParticipant {
     
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Builder.Default
     private Role role = Role.MEMBER;
     
     private LocalDateTime joinedAt;

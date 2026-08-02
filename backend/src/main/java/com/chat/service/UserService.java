@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +22,7 @@ public class UserService {
         if (user != null) {
             user.setStatus(User.UserStatus.ONLINE);
             userRepository.save(user);
-            redisTemplate.opsForValue().set(USER_STATUS_KEY + userId, "ONLINE", 30, TimeUnit.MINUTES);
+            redisTemplate.opsForValue().set(USER_STATUS_KEY + userId, "ONLINE", Duration.ofMinutes(30));
         }
     }
     

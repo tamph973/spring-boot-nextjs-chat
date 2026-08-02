@@ -36,6 +36,7 @@ public class User {
     
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Builder.Default
     private UserStatus status = UserStatus.OFFLINE;
     
     @CreationTimestamp
