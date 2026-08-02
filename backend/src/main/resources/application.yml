@@ -22,7 +22,7 @@ logging:
     org.hibernate.SQL: DEBUG
 
 jwt:
-  secret: ${JWT_SECRET:devChatSecretKeyReplaceMeAtLeast32BytesLongForHS256}
+  secret: ${JWT_SECRET}
   expiration: 86400000
   refresh-expiration: 604800000
 
