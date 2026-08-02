@@ -33,10 +33,12 @@ public class Message {
     
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Builder.Default
     private MessageType type = MessageType.TEXT;
     
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Builder.Default
     private MessageStatus status = MessageStatus.SENT;
     
     @CreationTimestamp
