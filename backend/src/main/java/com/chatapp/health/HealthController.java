@@ -16,6 +16,5 @@ public class HealthController {
                 "status", "UP",
                 "service", "chat-backend"
         );
-
     }
 }
