@@ -1,44 +1,84 @@
-```
-# Java/Maven specific
+# ==========================================
+# Java / Maven
+# ==========================================
+
 target/
 *.class
 *.jar
 *.war
 *.ear
-*.zip
-*.tar
-*.tar.gz
 
+# Maven generated files
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+
+
+# ==========================================
 # Dependencies
+# ==========================================
+
 lib/
 libs/
 
+
+# ==========================================
 # Logs
+# ==========================================
+
+logs/
 *.log
 
+
+# ==========================================
 # Environment
+# ==========================================
+
 .env
 .env.local
 *.env.*
 !.env.example
 
-# Editors
+
+# ==========================================
+# IDE / Editors
+# ==========================================
+
 .vscode/
 .idea/
+*.iml
+*.ipr
+*.iws
+
 *.swp
 *.swo
 
+
+# ==========================================
 # OS
+# ==========================================
+
 .DS_Store
 Thumbs.db
+desktop.ini
 
-# Testing
+
+# ==========================================
+# Testing / Coverage
+# ==========================================
+
 test-results/
 coverage/
 htmlcov/
 .coverage
 
-# Build system
+
+# ==========================================
+# Gradle
+# ==========================================
+
 .gradle/
 build/
-```
