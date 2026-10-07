@@ -1,0 +1,123 @@
+<mxfile host="app.diagrams.net" agent="design">
+  <diagram id="chat-arch" name="System Architecture">
+    <mxGraphModel dx="2050" dy="1321" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1720" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontFamily=Helvetica;" value="&lt;b style=&quot;font-size:22px&quot;&gt;Chat Application — System Architecture&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:13px;color:#555555&quot;&gt;Next.js + TypeScript · Spring Boot · WebSocket (STOMP) · Redis · MySQL · Docker Compose&lt;/span&gt;" vertex="1">
+          <mxGeometry height="50" width="1000" x="40" y="6" as="geometry" />
+        </mxCell>
+        <mxCell id="client" parent="1" style="swimlane;startSize=30;rounded=1;arcSize=6;fillColor=#dae8fc;strokeColor=#6c8ebf;swimlaneFillColor=#f3f8ff;fontStyle=1;fontSize=13;html=1;" value="Client — User Browser" vertex="1">
+          <mxGeometry height="340" width="240" x="40" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="cApp" parent="client" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=12;" value="&lt;b&gt;Next.js App (CSR)&lt;/b&gt;&lt;br&gt;React + TypeScript" vertex="1">
+          <mxGeometry height="50" width="200" x="20" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="cRest" parent="client" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=12;" value="&lt;b&gt;REST client&lt;/b&gt;&lt;br&gt;fetch / Axios · Bearer JWT" vertex="1">
+          <mxGeometry height="50" width="200" x="20" y="105" as="geometry" />
+        </mxCell>
+        <mxCell id="cWs" parent="client" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#e67e22;fontSize=12;" value="&lt;b&gt;STOMP client&lt;/b&gt;&lt;br&gt;@stomp/stompjs over WebSocket" vertex="1">
+          <mxGeometry height="60" width="200" x="20" y="205" as="geometry" />
+        </mxCell>
+        <mxCell id="cState" parent="client" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;dashed=1;fontSize=11;fontColor=#555555;" value="State: React Query / Zustand" vertex="1">
+          <mxGeometry height="40" width="200" x="20" y="278" as="geometry" />
+        </mxCell>
+        <mxCell id="docker" parent="1" style="swimlane;startSize=30;rounded=1;arcSize=2;dashed=1;dashPattern=8 4;strokeColor=#1d63ed;strokeWidth=2;fillColor=#1d63ed;fontColor=#ffffff;swimlaneFillColor=#f7faff;fontStyle=1;fontSize=14;html=1;" value="Docker Host — docker-compose · network: chat-net" vertex="1">
+          <mxGeometry height="850" width="1340" x="340" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="nginx" parent="docker" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;spacingRight=8;fontSize=12;" value="&lt;b&gt;Nginx&lt;/b&gt; (reverse proxy)&lt;br&gt;&lt;i&gt;nginx:alpine · :80 / :443&lt;/i&gt;&lt;hr&gt;• TLS termination&lt;br&gt;• / → frontend:3000&lt;br&gt;• /api/** → backend:8080&lt;br&gt;• /ws → Upgrade + ip_hash (sticky)" vertex="1">
+          <mxGeometry height="200" width="200" x="40" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="frontend" parent="docker" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;spacingRight=12;fontSize=12;" value="&lt;b&gt;Next.js Server&lt;/b&gt; — container: frontend&lt;br&gt;&lt;i&gt;node:20-alpine · :3000&lt;/i&gt;&lt;hr&gt;App Router · SSR / Server Components · Middleware (auth redirect) · static assets" vertex="1">
+          <mxGeometry height="140" width="500" x="340" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sb1" parent="docker" style="swimlane;startSize=30;rounded=1;arcSize=4;fillColor=#d5e8d4;strokeColor=#82b366;swimlaneFillColor=#f4fbf3;fontStyle=1;fontSize=13;html=1;" value="Spring Boot — container: backend-1 · eclipse-temurin:21-jre · :8080" vertex="1">
+          <mxGeometry height="300" width="500" x="340" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="sec" parent="sb1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;dashed=1;fontSize=11;" value="&lt;b&gt;Spring Security&lt;/b&gt; — JwtAuthFilter (REST) · ChannelInterceptor (STOMP CONNECT)" vertex="1">
+          <mxGeometry height="36" width="460" x="20" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rest" parent="sb1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;fontSize=11;" value="&lt;b&gt;REST Controllers&lt;/b&gt;&lt;br&gt;/api/auth · /api/users&lt;br&gt;/api/conversations&lt;br&gt;/api/messages" vertex="1">
+          <mxGeometry height="80" width="170" x="20" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="ws" parent="sb1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#e67e22;fontSize=11;" value="&lt;b&gt;WebSocket (STOMP)&lt;/b&gt;&lt;br&gt;endpoint /ws&lt;br&gt;@MessageMapping /app/**&lt;br&gt;dest /topic · /user/queue" vertex="1">
+          <mxGeometry height="90" width="170" x="20" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="svc" parent="sb1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;fontSize=11;" value="&lt;b&gt;Service Layer&lt;/b&gt;&lt;br&gt;&lt;br&gt;AuthService&lt;br&gt;UserService&lt;br&gt;ConversationService&lt;br&gt;MessageService&lt;br&gt;PresenceService" vertex="1">
+          <mxGeometry height="190" width="130" x="210" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="jpa" parent="sb1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=11;" value="&lt;b&gt;Spring Data JPA&lt;/b&gt;&lt;br&gt;Hibernate&lt;br&gt;HikariCP" vertex="1">
+          <mxGeometry height="90" width="120" x="360" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="rcl" parent="sb1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;fontSize=11;" value="&lt;b&gt;Spring Data Redis&lt;/b&gt;&lt;br&gt;Lettuce&lt;br&gt;Pub/Sub Listener" vertex="1">
+          <mxGeometry height="90" width="120" x="360" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="sb2" parent="docker" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;dashed=1;fontSize=12;" value="&lt;b&gt;Spring Boot — container: backend-2&lt;/b&gt;&lt;br&gt;&lt;i&gt;same image · scale-out (docker compose --scale backend=N)&lt;/i&gt;&lt;br&gt;Subscribe chat.room.* → push tới WebSocket sessions của chính nó" vertex="1">
+          <mxGeometry height="100" width="500" x="340" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="mysql" parent="docker" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=16;fillColor=#dae8fc;strokeColor=#2f6db5;fontSize=12;verticalAlign=top;spacingTop=4;" value="&lt;b style=&quot;font-size:14px&quot;&gt;MySQL 9.x&lt;/b&gt;&lt;br&gt;&lt;i&gt;container: mysql · :3306 · volume: mysql_data&lt;/i&gt;&lt;hr&gt;users&lt;br&gt;conversations&lt;br&gt;conversation_members&lt;br&gt;messages&lt;br&gt;message_receipts (delivered / read)" vertex="1">
+          <mxGeometry height="250" width="380" x="920" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="redis" parent="docker" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=16;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;verticalAlign=top;spacingTop=4;" value="&lt;b style=&quot;font-size:14px&quot;&gt;Redis 8.x&lt;/b&gt;&lt;br&gt;&lt;i&gt;container: redis · :6379 · volume: redis_data&lt;/i&gt;&lt;hr&gt;Pub/Sub: chat.room.{id} (fan-out giữa instances)&lt;br&gt;Presence: online:{userId} (TTL)&lt;br&gt;Typing: typing:{roomId} (TTL ngắn)&lt;br&gt;Cache: user profile, conversation list&lt;br&gt;Rate limit · refresh-token blacklist" vertex="1">
+          <mxGeometry height="250" width="380" x="920" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="cRest" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;strokeColor=#333333;strokeWidth=1.5;fontSize=11;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.25;" target="nginx" value="HTTPS (pages + REST)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="cWs" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;startArrow=classic;strokeColor=#e67e22;strokeWidth=2;fontSize=11;fontColor=#c0650f;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.775;" target="nginx" value="WSS /ws (STOMP)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="nginx" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;strokeColor=#333333;strokeWidth=1.5;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.5;exitY=0;entryX=0;entryY=0.5;" target="frontend" value="/ → frontend:3000">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="nginx" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;strokeColor=#333333;strokeWidth=1.5;fontSize=11;labelBackgroundColor=#ffffff;exitX=1;exitY=0.25;entryX=0;entryY=0.5;" target="rest" value="/api/**">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="nginx" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;startArrow=classic;strokeColor=#e67e22;strokeWidth=2;fontSize=11;fontColor=#c0650f;labelBackgroundColor=#ffffff;exitX=1;exitY=0.775;entryX=0;entryY=0.5;" target="ws" value="/ws Upgrade&lt;br&gt;(sticky)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="nginx" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;dashed=1;strokeColor=#555555;strokeWidth=1.5;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;entryX=0;entryY=0.5;" target="sb2" value="load balance /api + /ws">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="frontend" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;dashed=1;strokeColor=#9673a6;strokeWidth=1.5;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.15;exitY=1;entryX=0.15;entryY=0;" target="sb1" value="SSR fetch&lt;br&gt;http://backend:8080/api">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="i1" edge="1" parent="1" source="rest" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;strokeColor=#82b366;exitX=1;exitY=0.5;entryX=0;entryY=0.21;" target="svc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="i2" edge="1" parent="1" source="ws" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;strokeColor=#82b366;exitX=1;exitY=0.5;entryX=0;entryY=0.76;" target="svc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="i3" edge="1" parent="1" source="svc" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;strokeColor=#82b366;exitX=1;exitY=0.21;entryX=0;entryY=0.5;" target="jpa">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="i4" edge="1" parent="1" source="svc" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;strokeColor=#82b366;exitX=1;exitY=0.76;entryX=0;entryY=0.5;" target="rcl">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d1" edge="1" parent="1" source="jpa" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;strokeColor=#2f6db5;strokeWidth=2;fontSize=11;fontColor=#2f6db5;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.54;" target="mysql" value="JDBC :3306">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d2" edge="1" parent="1" source="rcl" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;startArrow=classic;strokeColor=#b85450;strokeWidth=2;fontSize=11;fontColor=#b85450;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.35;" target="redis" value="PUBLISH / SUBSCRIBE&lt;br&gt;GET · SET · EXPIRE">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d3" edge="1" parent="1" source="sb2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;startArrow=classic;strokeColor=#b85450;strokeWidth=2;fontSize=11;fontColor=#b85450;labelBackgroundColor=#ffffff;exitX=1;exitY=0.75;entryX=0;entryY=0.5;" target="redis" value="SUBSCRIBE chat.room.*">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d4" edge="1" parent="1" source="sb2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;dashed=1;strokeColor=#2f6db5;strokeWidth=1.5;fontSize=11;fontColor=#2f6db5;labelBackgroundColor=#ffffff;exitX=1;exitY=0.25;entryX=0;entryY=0.85;" target="mysql" value="JDBC">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1225" y="685" />
+              <mxPoint x="1225" y="532" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="flow" parent="1" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;fillColor=#fffbe6;strokeColor=#d6b656;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;spacingRight=8;fontSize=11;" value="&lt;b style=&quot;font-size:13px&quot;&gt;Luồng gửi 1 tin nhắn (realtime)&lt;/b&gt;&lt;hr&gt;① Client SEND /app/chat.send qua WSS&lt;br&gt;② Nginx chuyển tới backend-1 (sticky)&lt;br&gt;③ ChannelInterceptor xác thực JWT&lt;br&gt;④ MessageService lưu messages → MySQL&lt;br&gt;⑤ PUBLISH chat.room.{id} → Redis&lt;br&gt;⑥ Mọi backend đang SUBSCRIBE nhận event, đẩy /topic/room.{id} tới client của mình" vertex="1">
+          <mxGeometry height="210" width="280" x="40" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="legend" parent="1" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=12;" value="&lt;b&gt;Chú thích:&lt;/b&gt;&amp;nbsp;&amp;nbsp; &lt;span style=&quot;color:#333333&quot;&gt;━━ REST / HTTP&lt;/span&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;span style=&quot;color:#e67e22&quot;&gt;━━ WebSocket / STOMP&lt;/span&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;span style=&quot;color:#b85450&quot;&gt;━━ Redis Pub/Sub · Cache&lt;/span&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;span style=&quot;color:#2f6db5&quot;&gt;━━ JDBC&lt;/span&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;span style=&quot;color:#555555&quot;&gt;┅┅ nội bộ / scale-out&lt;/span&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;span style=&quot;color:#1d63ed&quot;&gt;▭ viền xanh đứt = Docker host&lt;/span&gt;" vertex="1">
+          <mxGeometry height="30" width="1340" x="340" y="925" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
