@@ -2,6 +2,10 @@ package com.chatapp.common.exception;
 
 import com.chatapp.common.response.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -13,6 +17,9 @@ import java.util.List;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    private static final Logger log =
+            LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     /**
      * Handle business exceptions.
@@ -35,6 +42,54 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
+                .body(errorResponse);
+    }
+
+    /**
+     *  Handle 404
+     */
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNoResourceFound(
+            NoResourceFoundException ex,
+            HttpServletRequest request
+    ) {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(status.value())
+                .error(status.getReasonPhrase())
+                .code(ErrorCode.NOT_FOUND.getCode())
+                .message("Resource not found")
+                .path(request.getRequestURI())
+                .build();
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(errorResponse);
+    }
+
+    /**
+     *  Handle 405
+     */
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<ErrorResponse> handleMethodNotSupported(
+            HttpRequestMethodNotSupportedException  ex,
+            HttpServletRequest request
+    ) {
+        HttpStatus status = HttpStatus.METHOD_NOT_ALLOWED;
+
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(status.value())
+                .error(status.getReasonPhrase())
+                .code(ErrorCode.METHOD_NOT_ALLOWED.getCode())
+                .message("HTTP method not supported")
+                .path(request.getRequestURI())
+                .build();
+
+        return ResponseEntity
+                .status(HttpStatus.METHOD_NOT_ALLOWED)
                 .body(errorResponse);
     }
 

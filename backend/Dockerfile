@@ -20,11 +20,13 @@ RUN ./mvnw clean package -DskipTests
 FROM eclipse-temurin:25-jre
 
 WORKDIR /app
+#
+#RUN mkdir -p /app/logs
 
 COPY --from=builder /app/target/*.jar app.jar
 
-RUN useradd --system --no-create-home appuser
-USER appuser
+#RUN useradd --system --no-create-home appuser
+#USER appuser
 
 EXPOSE 8080
 
