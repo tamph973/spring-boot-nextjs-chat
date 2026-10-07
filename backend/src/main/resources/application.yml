@@ -33,6 +33,6 @@ logging:
     org.hibernate.SQL: DEBUG
 
 jwt:
-  secret: ${JWT_SECRET:dev-secret-change-in-phase-03}
+  secret: ${JWT_SECRET:Gv3yECGYzzBtd/oqoP40xKFF2o+0DRHCruzKAb94z2c=}
   expiration: ${JWT_EXPIRATION_MS:86400000}
   refresh-expiration: ${JWT_REFRESH_EXPIRATION_MS:604800000}
