@@ -1,16 +1,17 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/chat_db?createDatabaseIfNotExist=true&serverTimezone=Asia/Ho_Chi_Minh&useSSL=false&allowPublicKeyRetrieval=true
-    username: root
-    password: root
+    url: jdbc:mysql://localhost:3306/chat_application?createDatabaseIfNotExist=true&serverTimezone=Asia/Ho_Chi_Minh&useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   data:
     redis:
-      host: localhost
-      port: 6379
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
 
-spring.jpa:
-  show-sql: true
+  jpa:
+    show-sql: true
 
 app:
   cors:

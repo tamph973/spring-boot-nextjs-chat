@@ -4,13 +4,19 @@ spring:
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   data:
     redis:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
 
-spring.jpa:
-  show-sql: false
+  jpa:
+    show-sql: false
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
 
 jwt:
   secret: ${JWT_SECRET}
@@ -19,4 +25,9 @@ jwt:
 
 app:
   cors:
-    allowed-origins: ${CORS_ORIGINS:https://your-app.example.com}
+    allowed-origins: ${CORS_ORIGINS:http://localhost:3000}
+
+logging:
+  level:
+    com.chatapp: INFO
+    org.hibernate.SQL: WARN

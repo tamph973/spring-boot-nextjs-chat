@@ -1,0 +1,22 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ChatApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <envs>
+      <env name="CORS_ORIGINS" value="http://localhost:3000" />
+      <env name="DB_PASSWORD" value="root" />
+      <env name="DB_USERNAME" value="root" />
+      <env name="JWT_EXPIRATION_MS" value="86400000" />
+      <env name="JWT_REFRESH_EXPIRATION_MS" value="604800000" />
+      <env name="JWT_SECRET" value="Gv3yECGYzzBtd/oqoP40xKFF2o+0DRHCruzKAb94z2c=" />
+      <env name="REDIS_HOST" value="localhost" />
+      <env name="REDIS_PORT" value="6379" />
+    </envs>
+    <option name="envFilePaths">
+      <option value="$PROJECT_DIR$/.env" />
+    </option>
+    <module name="chat-backend" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.chatapp.ChatApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

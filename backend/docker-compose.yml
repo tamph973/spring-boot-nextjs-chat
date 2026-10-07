@@ -1,0 +1,47 @@
+services:
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: chat-backend
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+    ports:
+      - "8080:8080"
+
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+
+      DB_URL: jdbc:mysql://host.docker.internal:3306/chat_application?serverTimezone=Asia/Ho_Chi_Minh&useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRATION_MS: ${JWT_EXPIRATION_MS:-86400000}
+      JWT_REFRESH_EXPIRATION_MS: ${JWT_REFRESH_EXPIRATION_MS:-604800000}
+
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
+
+    depends_on:
+      redis:
+        condition: service_started
+
+  redis:
+    image: redis:8-alpine
+
+    container_name: chat-redis
+
+    volumes:
+      - redis_data:/data
+
+    command: redis-server --appendonly yes --protected-mode no
+
+volumes:
+  redis_data:
