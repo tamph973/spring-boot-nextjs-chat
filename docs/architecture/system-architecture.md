@@ -2,7 +2,9 @@
 
 ## 1. Overview
 
-Chat Application là hệ thống nhắn tin thời gian thực (Real-time Chat System), cho phép người dùng đăng ký tài khoản, kết bạn, tạo cuộc trò chuyện cá nhân hoặc nhóm, gửi tin nhắn văn bản, hình ảnh và nhận thông báo theo thời gian thực.
+Chat Application là hệ thống nhắn tin thời gian thực (Real-time Chat System), 
+cho phép người dùng đăng ký tài khoản, kết bạn, tạo cuộc trò chuyện cá nhân 
+hoặc nhóm, gửi tin nhắn văn bản, hình ảnh và nhận thông báo theo thời gian thực.
 
 Hệ thống được xây dựng theo kiến trúc tách biệt Frontend và Backend:
 
@@ -27,8 +29,8 @@ Hệ thống được xây dựng theo kiến trúc tách biệt Frontend và Ba
 * Gửi và nhận tin nhắn thời gian thực
 * Hiển thị trạng thái Online/Offline
 * Hiển thị trạng thái đã xem (Seen)
-* Gửi hình ảnh và file
 * Thông báo (Notification)
+* Gửi hình ảnh và file
 
 ### Non-functional Goals
 

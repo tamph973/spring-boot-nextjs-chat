@@ -7,7 +7,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     open-in-view: false
     properties:
       hibernate:
@@ -26,11 +26,16 @@ management:
     web:
       exposure:
         include: health,info
-
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
+      
 logging:
   level:
     com.chatapp: DEBUG
     org.hibernate.SQL: DEBUG
+    org.flywaydb: DEBUG
 
 jwt:
   secret: ${JWT_SECRET:Gv3yECGYzzBtd/oqoP40xKFF2o+0DRHCruzKAb94z2c=}
