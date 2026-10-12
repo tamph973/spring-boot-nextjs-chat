@@ -1,6 +1,6 @@
 # Chat Application — Database ERD (v1.0)
 
-> **Database:** MySQL 8.0 · InnoDB · `utf8mb4` / `utf8mb4_0900_ai_ci`
+> **Database:** MySQL  9.7.1 · InnoDB · `utf8mb4` / `utf8mb4_0900_ai_ci`
 > **Backend:** Spring Boot (Spring Data JPA + Flyway) · **Cache/Realtime:** Redis · **Realtime:** WebSocket (STOMP)
 > **Nguồn:** hợp nhất từ sơ đồ dbdiagram hiện tại (roles, user_has_role, conversation_participants, chat_messages, conversations) và tài liệu mô tả ERD (friendships, attachments, notifications, soft delete, reply).
 
